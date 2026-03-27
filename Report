@@ -1,0 +1,35 @@
+In this Power BI project, I completed the entire data preparation and transformation workflow for Maven Market, a retail company with stores in three countries (the USA, Mexico, and Canada). 
+The objective was to clean, connect, and enhance multiple datasets, making them suitable for comprehensive reporting and analysis. 
+Below is a summary of the key steps and techniques utilised throughout the process.
+
+Loading and Shaping the Data
+
+To start the project, I uploaded all the CSV files into Power BI and shaped the data using the Power Query Editor. 
+I carefully reviewed each data table to ensure that all data types were accurate and complete. 
+In the Customer table, I added new columns, including “full_name,” which I created by merging the “first_name” and “last_name” columns. 
+I also extracted the year from the “birthdate” column to create a new column called “birth_year.” 
+Additionally, I made a conditional column named “has_children,” which is set to “N” if “total_children” equals 0, and “Y” otherwise. 
+In the Products table, I used statistical tools to determine the number of distinct product brands and product names, yielding results of 111 brands and 1,560 product names. 
+Following this, I added a calculated column named “discount_price,” which is equal to 90% of the original retail price. 
+I also replaced “null” values with zeros in the “recyclable” and “low-fat” columns. For the Stores data, I created a calculated column named “full_address” by merging the “store_city,” “store_state,” and “store_country,” separating them with a comma and space using a custom separator.
+Additionally, I generated a calculated column named “area_code” by extracting the characters before the dash (“-”) in the “store_phone” field. In the Calendar table, I utilised the date tools in the query editor to add columns for the Start of Week (starting Sunday), Name of Day, Start of Month, Name of Month, Quarter of Year, and Year.
+
+Finally, I combined the 1997 and 1998 datasets using a connected folder. I updated all date fields to the MM/DD/YYYY format using the modelling tab and ensured that all prices and costs were formatted as currency.
+
+Creating the Data Model
+
+In the relationships view, I connected the transaction data to the customer, product, and store lookup tables using primary and foreign keys. 
+I established an active and inactive relationship between the transaction data and the calendar lookup table. 
+Additionally, I linked the return data to the product, calendar, and store tables using primary and foreign keys. 
+I then connected the store data to the region lookup table, creating a snowflake schema. Once all my tables were connected, 
+I ensured that all relationships were one-to-many and that the filters flowed in a single direction, downstream to the primary data table. 
+I also verified that all data tables were connected through shared lookup tables rather than directly to one another.
+
+Calculated Columns
+
+In the Power BI Data view, I enriched the existing model by adding calculated columns across several tables to enhance analytical capabilities. 
+In the Calendar table, I created a “Weekend” column that flags Saturdays and Sundays with “Y”, and an ”End of Month” column that returns the last date of each month. 
+Within the Customers table, I added a “Current Age” column using the TODAY() function to calculate age from the birthdate, and a “Priority” column that flags customers as “High” if they both own homes and hold a Golden membership card.
+I also included a “Short_Country” column that returns the first three letters of the country in uppercase, and a ”House Number” column that extracts the numeric prefix from the address using the `SEARCH` function. In the Products table, a “Price_Tier” column categorises products as “High”, “Mid” or “Low” based on the retail price. 
+Lastly, in the Stores table, I added a “Years_Since_Remodel” column that calculates the number of years since the store was last remodeled, based on the current date.
+These enhancements support richer segmentation, filtering, and trend analysis in reporting.
